@@ -13,4 +13,8 @@ The only problem rght now is that pages do not update themselves automatically.
 
 UPDATE:
 
+<<<<<<< HEAD
 I used another solution by sending ListenKey from view to js in index.html and then creating a websocket connection there and managing it there. I don't know how safe this is. Also we won't be able to monitor and log the change of  orders list in the backend but I don't know if that is our goal so I hope it is ok.
+=======
+I used another solution by sending ListenKey from view to js in index.html and then creating a websocket connection there and managing it there. I don't know how safe this is. Also we won't be able to monitor and log the change of  orders list in the backend but I don't know if that is our goal so I hope it is ok.
+
