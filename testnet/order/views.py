@@ -10,6 +10,21 @@ URL = "https://testnet.binancefuture.com/"
 API = "/fapi/v1/openOrders"
 TIME_API = "/fapi/v1/time"
 
+def get_listenkey (api_key , api_secret):
+    API = "/fapi/v1/listenKey"
+    message = ''
+    signature = hmac.new(
+        bytes(api_secret , 'latin-1'),
+        msg = bytes(message , 'latin-1'),
+        digestmod=hashlib.sha256
+    ).hexdigest()
+
+    key_response = requests.post( url=URL+API, params = {'signature': str(signature)} , headers={'X-MBX-APIKEY': str(api_key)})
+    listenkey = key_response.json()['listenKey']
+
+    return listenkey
+
+
 # Create your views here.
 def index1(request):
     #return HttpResponse("hello")
@@ -33,12 +48,13 @@ def index1(request):
     #print(str(signature))
     open_orders = requests.get( url=URL+API, params = {'timestamp' : str(current_time) , 'signature': str(signature)} , headers={'X-MBX-APIKEY': str(API_KEY)})
 
-    username = request.user.username
+    listenkey = get_listenkey(API_KEY , API_SECRET)
     
 
     context = {
         'title' : "slave1",
         'orderlist' : open_orders.json(),
+        'listenkey' : listenkey,
     }
 
     return render(request , "order/index.html" , context)
@@ -68,11 +84,12 @@ def index2(request):
     #print(str(signature))
     open_orders = requests.get( url=URL+API, params = {'timestamp' : str(current_time) , 'signature': str(signature)} , headers={'X-MBX-APIKEY': str(API_KEY)})
 
-    username = request.user.username
+    listenkey = get_listenkey(API_KEY , API_SECRET)
     
     context = {
         'title' : "slave2",
-        'orderlist' : [{'title': "one" , 'body': open_orders.json()} , {'title': "two" , 'body': "body two"}]
+        'orderlist' : open_orders.json(),
+        'listenkey' : listenkey
     }
 
     return render(request , "order/index.html" , context)
