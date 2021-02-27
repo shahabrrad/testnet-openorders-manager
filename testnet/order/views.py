@@ -35,9 +35,10 @@ def index1(request):
 
     username = request.user.username
     
+
     context = {
-        'title' : 'latest order of user ' + username,
-        'orderlist' : [{'title': "one" , 'body': open_orders.json()} , {'title': "two" , 'body': "body two"}]
+        'title' : "slave1",
+        'orderlist' : open_orders.json(),
     }
 
     return render(request , "order/index.html" , context)
@@ -70,7 +71,7 @@ def index2(request):
     username = request.user.username
     
     context = {
-        'title' : 'latest order of user ' + username,
+        'title' : "slave2",
         'orderlist' : [{'title': "one" , 'body': open_orders.json()} , {'title': "two" , 'body': "body two"}]
     }
 

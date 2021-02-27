@@ -2,17 +2,49 @@
 
 {% block content %}
 <h3 class="center-align red lighten-3">{{title}}</h3>
-<ul class="collection">
-    {% for order in orderlist %}
-        <li class="collection-item">{{order.title}}
-            <div class="card">
-                <div class = "card-content">
-                    {{order.body}}
-                </div>
-            </div>
-
-
-        </li>
-    {% endfor %}
-</ul>
+<div class="card">
+    <div class = "card-content">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                  <th scope="col">id</th>
+                  <th scope="col">symbol</th>
+                  <th scope="col">price</th>
+                  <th scope="col">quantity</th>
+                  <th scope="col">action</th>
+                </tr>
+              </thead>
+              <tbody>
+        {% for order in orderlist %}
+        <tr>
+            <th scope="row">{{order.orderId}}</th>
+            <td>{{order.symbol}}</td>
+            <td>{{order.price}}</td>
+            <td>{{order.origQty}}</td>
+            <td>{{order.side}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+   </div>
+</div>
+<script>
+    var url = "";
+    console.log("{{title}}");
+    if("{{title}}"==="slave1"){
+        url = "ws://localhost:8000/ws/slave1/"
+    }else{
+        url = "ws://localhost:8000/ws/slave2/"
+    }
+    var socket = new WebSocket(url);
+    socket.onopen = function (event) {
+        socket.send("slave1");
+    };
+    socket.onmessage = function(event){
+        //var data = JSON.parse(event.data);
+        console.log(event.data);
+       //document.querySelector('#app').innerText = data.message
+    }
+</script>
 {% endblock %}
+

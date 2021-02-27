@@ -1,7 +1,17 @@
 {% extends 'order/layout.html' %}
 
 {% block content %}
-<h3 class="center-align red lighten-3">{{title}}</h3>
-<p><a href="/order/slave1/">to slave 1</a></p>
-<p><a href="/order/slave2/">to slave 2</a></p>
+<h3 class="center-align red lighten-3">Mater options</h3>
+<div class="card">
+    <div class = "card-content">
+
+        <ul class="list-group">
+            <li class="list-group-item"><a href="/order/slave1/">slave 1 data</a></li>
+            <li class="list-group-item"><a href="/order/slave2/">slave 2 data</a></li>
+
+          </ul>
+
+    </div>
+</div>
+
 {% endblock %}
